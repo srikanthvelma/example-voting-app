@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-deploy
+  labels:
+    app: demo-voting-app
+    name: voting-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-voting-app
+      name: voting-pod
+  template:
+    metadata:
+      name: voting-pod
+      labels:
+        name: voting-pod
+        app: demo-voting-app
+    spec:
+      containers:
+        - name: voting-app
+          image: srikanthvelma/voting-ap_result:v1
+          ports:
+            - containerPort: 80
