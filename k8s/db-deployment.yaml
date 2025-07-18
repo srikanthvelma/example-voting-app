@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -28,3 +29,21 @@ spec:
               value: "postgres"
             - name: POSTGRES_PASSWORD
               value: "postgres"
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-svc
+  labels:
+    name: postgres-svc
+    app: demo-voting-app
+spec:
+  type: ClusterIP
+  selector:
+    app: demo-voting-app
+    name: postgres-pod
+  ports:
+    - port: 5432
+      targetPort: 5432
