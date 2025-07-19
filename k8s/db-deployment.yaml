@@ -4,20 +4,17 @@ kind: Deployment
 metadata:
   name: postgres-deploy
   labels:
-    app: demo-voting-app
     name: postgres-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: demo-voting-app
       name: postgres-pod
   template:
     metadata:
       name: postgres-pod
       labels:
         name: postgres-pod
-        app: demo-voting-app
     spec:
       containers:
         - name: postgres
@@ -35,14 +32,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-svc
+  name: db
   labels:
-    name: postgres-svc
-    app: demo-voting-app
+    name: db
 spec:
   type: ClusterIP
   selector:
-    app: demo-voting-app
     name: postgres-pod
   ports:
     - port: 5432
